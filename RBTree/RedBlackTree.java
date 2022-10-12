@@ -103,10 +103,44 @@ public class RedBlackTree <T extends Comparable<T>> {
 	
 	private void leftRotate(RBNode subTreeRootNode) {
 		//TODO: Perform a left rotation rooted at subTreeRoot.
+		RBNode y = subTreeRootNode.right;
+		subTreeRootNode.right = y.left;
+		
+		if (y.left != NIL) {
+			y.left.parent = subTreeRootNode;
+		}
+		
+		y.parent = subTreeRootNode.parent;
+		if (subTreeRootNode.parent == NIL) {
+			root = y;
+		} else if (subTreeRootNode == subTreeRootNode.parent.left) {
+			subTreeRootNode.parent.left = y;
+		} else {
+			subTreeRootNode.parent.right = y;
+		}
+		
+		y.left = subTreeRootNode;
+		subTreeRootNode.parent = y;
 	}
 	
 	private void rightRotate(RBNode subTreeRootNode) {
 		//TODO: Perform a right rotation rooted at subTreeRoot.
+		RBNode y = subTreeRootNode.left;
+		subTreeRootNode.left = y.right;
+
+		if (y.right != NIL) {
+					y.right.parent = subTreeRootNode;
+		}
+		y.parent = subTreeRootNode.parent;
+		if (subTreeRootNode.parent == NIL) {
+					root = y;
+		} else if (subTreeRootNode == subTreeRootNode.parent.right) {
+					subTreeRootNode.parent.right = y;
+		} else {
+					subTreeRootNode.parent.left = y;
+		}
+		y.right = subTreeRootNode;
+		subTreeRootNode.parent = y;
 	}
 	
 	private void insertCleanup(RBNode node) {
